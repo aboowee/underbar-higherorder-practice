@@ -9,11 +9,20 @@ module.exports = {
     ecmaVersion: 5
   },
   noInlineConfig: true,
+  ignorePatterns: ['**/spec/*.js'],
+  env: {
+    'browser': true,
+    'node': true,
+  },
+  globals: {
+    '_': true
+  },
   rules: {
     /* Indentation */
     'no-mixed-spaces-and-tabs': 2,
     'indent-legacy': [2, 2],
     /* Variable names */
+    'no-undef': 2,
     'camelcase': 2,
     /* Language constructs */
     'curly': 2,

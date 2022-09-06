@@ -566,12 +566,12 @@
       });
 
       it('should have successfully passed function arguments in', function() {
-        var randomLengthOne = Math.floor(Math.random() * 8) + 2;
+        var randomLengthOne = Math.floor(Math.random() * 50) + 10;
         var randomArgsOne = Array.from({length: randomLengthOne}, function() {
           return Math.floor(Math.random() * 10);
         });
 
-        var randomLengthTwo = Math.floor(Math.random() * 8) + 2;
+        var randomLengthTwo = Math.floor(Math.random() * 100) + 10;
         var randomArgsTwo = Array.from({length: randomLengthTwo}, function() {
           return Math.floor(Math.random() * 10);
         });
