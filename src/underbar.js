@@ -7,26 +7,6 @@
     return val;
   };
 
-  /**
-   * COLLECTIONS
-   * ===========
-   *
-   * In this section, we'll have a look at functions that operate on collections
-   * of values; in JavaScript, a 'collection' is something that can contain a
-   * number of values--either an array or an object.
-   *
-   *
-   * IMPORTANT NOTE!
-   * ===========
-   *
-   * The .first function is implemented for you, to help guide you toward success
-   * in your work on the following functions. Whenever you see a portion of the
-   * assignment pre-completed, be sure to read and understand it fully before
-   * you proceed. Skipping this step will lead to considerably more difficulty
-   * implementing the sections you are responsible for.
-   */
-
-
   _.first = function(array, n) {
     return n === undefined ? array[0] : array.slice(0, n);
   };
@@ -39,12 +19,16 @@
     }
   };
 
-  // Call iterator(value, key, collection) for each element of collection.
-  // Accepts both arrays and objects.
-  //
-  // Note: _.each does not have a return value, but rather simply runs the
-  // iterator function over each item in the input collection.
   _.each = function(collection, iterator) {
+    if (Array.isArray(collection)) {
+      for (var i = 0; i < collection.length; i++) {
+        iterator(collection[i], i, collection);
+      }
+    } else {
+      for (var key in collection) {
+        iterator(collection[key], key, collection);
+      }
+    }
   };
 
   // Returns the index at which value can be found in the array, or -1 if value
