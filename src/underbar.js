@@ -121,29 +121,8 @@
     return accumulator;
   };
 
-
-  // --------------------
-  // ! END OF PART ONE !
-  // --------------------
-  //
-  // Congrats! You've reached the end of Underbar Part 1!
-  //
-  // This means that you should return to Learn and move on to the next lesson:
-  //    - Learn Unit: Debugging
-  //    - Learn Lesson: Before Moving On
-  //
-  // CAUTION:
-  //
-  //   - Do not proceed on to Underbar Part 2 (below) without reading the
-  //     slides on Scopes & Closure
-  //
-  // --------------------
-
-
-  // Determine if the array or object contains a given value (using `===`).
   _.contains = function(collection, target) {
-    // TIP: Many iteration problems can be most easily expressed in
-    // terms of reduce(). Here's a freebie to demonstrate!
+
     return _.reduce(collection, function(wasFound, item) {
       if (wasFound) {
         return true;
@@ -152,10 +131,16 @@
     }, false);
   };
 
-
-  // Determine whether all of the elements match a truth test.
   _.every = function(collection, iterator) {
-    // TIP: Try re-using reduce() here.
+    return _.reduce(collection, function(isAllTrue, item) {
+      if (!isAllTrue) {
+        return false;
+      }
+      if (iterator) {
+        return !!iterator(item);
+      }
+      return !!item;
+    }, true);
   };
 
   // Determine whether any of the elements pass a truth test. If no iterator is
