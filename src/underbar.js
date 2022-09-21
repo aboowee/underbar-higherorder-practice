@@ -149,8 +149,6 @@
         return !item;
       } else if (iterator) {
         return !iterator(item);
-      } else {
-        return item !== iterator;
       }
     });
   };
