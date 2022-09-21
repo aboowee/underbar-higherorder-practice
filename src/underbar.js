@@ -143,10 +143,16 @@
     }, true);
   };
 
-  // Determine whether any of the elements pass a truth test. If no iterator is
-  // provided, provide a default one
   _.some = function(collection, iterator) {
-    // TIP: There's a very clever way to re-use every() here.
+    return !_.every(collection, function(item) {
+      if (iterator === undefined) {
+        return !item;
+      } else if (iterator) {
+        return !iterator(item);
+      } else {
+        return item !== iterator;
+      }
+    });
   };
 
 
