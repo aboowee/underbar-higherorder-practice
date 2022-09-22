@@ -153,98 +153,81 @@
     });
   };
 
-
-  /**
-   * OBJECTS
-   * =======
-   *
-   * In this section, we'll look at a couple of helpers for merging objects.
-   */
-
-  // Extend a given object with all the properties of the passed in
-  // object(s).
-  //
-  // Example:
-  //   var obj1 = {key1: "something"};
-  //   _.extend(obj1, {
-  //     key2: "something new",
-  //     key3: "something else new"
-  //   }, {
-  //     bla: "even more stuff"
-  //   }); // obj1 now contains key1, key2, key3 and bla
   _.extend = function(obj) {
+    var objectMerged = obj;
+    if (arguments.length > 1) {
+      for (var i = 1; i < arguments.length; i++) {
+        _.each(arguments[i], function (value, key) {
+          objectMerged[key] = value;
+        });
+      }
+      return objectMerged;
+    }
   };
 
-  // Like extend, but doesn't ever overwrite a key that already
-  // exists in obj
   _.defaults = function(obj) {
+    var objectMerged = obj;
+    if (arguments.length > 1) {
+      for (var i = 1; i < arguments.length; i++) {
+        _.each(arguments[i], function (value, key) {
+          if (objectMerged[key] === undefined) {
+            objectMerged[key] = value;
+          }
+        });
+      }
+      return objectMerged;
+    }
   };
 
 
-  /**
-   * FUNCTIONS
-   * =========
-   *
-   * Now we're getting into function decorators, which take in any function
-   * and return out a new version of the function that works somewhat differently
-   */
-
-  // Return a function that can be called at most one time. Subsequent calls
-  // should return the previously returned value.
   _.once = function(func) {
-    // TIP: These variables are stored in a "closure scope" (worth researching),
-    // so that they'll remain available to the newly-generated function every
-    // time it's called.
+
     var alreadyCalled = false;
     var result;
 
-    // TIP: We'll return a new function that delegates to the old one, but only
-    // if it hasn't been called before.
     return function() {
       if (!alreadyCalled) {
-        // TIP: .apply(this, arguments) is the standard way to pass on all of the
-        // infromation from one function call to another.
         result = func.apply(this, arguments);
         alreadyCalled = true;
       }
-      // The new function always returns the originally computed result.
       return result;
     };
   };
 
-  // Memorize an expensive function's results by storing them.
-  // memoize could be renamed to oncePerUniqueArgumentList; memoize does the
-  // same thing as once, but based on many sets of unique arguments.
-  //
-  // _.memoize should return a function that, when called, will check if it has
-  // already computed the result for the given argument and return that value
-  // instead if possible.
   _.memoize = function(func) {
+
+    var results = {};
+
+    return function() {
+      var args = JSON.stringify(arguments);
+      if (!results[args]) {
+        results[args] = func.apply(this, arguments);
+      }
+      return results[args];
+    };
   };
 
-  // Delays a function for the given number of milliseconds, and then calls
-  // it with the arguments supplied.
-  //
-  // The arguments for the original function are passed after the wait
-  // parameter. For example _.delay(someFunction, 500, 'a', 'b') will
-  // call someFunction('a', 'b') after 500ms
   _.delay = function(func, wait) {
+    return setTimeout.apply(this, arguments);
   };
 
-
-  /**
-   * COLLECTION OPERATIONS
-   * ==============================
-   */
-
-  // Randomizes the order of an array's contents.
-  //
-  // TIP: This function's test suite will ask that you not modify the original
-  // input array. For a tip on how to make a copy of an array, see:
-  // http://mdn.io/Array.prototype.slice
   _.shuffle = function(array) {
-  };
+    var copiedArray = array.slice(0);
+    var randomIndex = [];
+    var randomArray = [];
 
+    while (randomIndex.length < copiedArray.length) {
+      var random = Math.round(Math.random() * (copiedArray.length - 1));
+      if (!randomIndex.includes(random)) {
+        randomIndex.push(random);
+      }
+    }
+
+    for (var i = 0; i < randomIndex.length; i++) {
+      randomArray.push(copiedArray[randomIndex[i]]);
+    }
+    return randomArray;
+  };
 
 /**
    * ADVANCED: EXTRA CREDIT BEGINS HERE
